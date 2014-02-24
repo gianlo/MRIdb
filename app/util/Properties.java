@@ -7,6 +7,17 @@ import play.Play;
 
 public class Properties {
 
+	public static boolean useWeasis(){
+		String use_weasis = Play.configuration.getProperty("use_weasis");
+		if (use_weasis != null) {
+			return use_weasis.equalsIgnoreCase("true");
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
 	public static int getInt(String key) {
 		return Integer.parseInt(Play.configuration.getProperty(key));
 	}

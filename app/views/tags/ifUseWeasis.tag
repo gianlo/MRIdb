@@ -1,0 +1,1 @@
+#{if utils.Properties.useWeasis()}#{doBody /}#{/if}

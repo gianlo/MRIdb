@@ -95,7 +95,12 @@ public class Application extends SecureController {
 		if (page == null) {
 			index(0, order, sort);
 		}
-		List<Study> studies = Study.find(String.format("from Study where study_datetime is not null order by %s %s", order == null || order.isEmpty() ? "study_datetime" : order, "asc".equals(sort) ? "asc" : "desc")).fetch(page + 1, Properties.pageSize());
+		List<Study> studies = Study.find(
+				String.format(
+						"from Study where study_datetime is not null order by %s %s", 
+						order == null || order.isEmpty() ? "study_datetime" : order, 
+								"asc".equals(sort) ? "asc" : "desc")).fetch(page + 1, 
+										Properties.pageSize());
 		int studyCount = (int) Study.count();
 		render(studies, studyCount, page);
 	}
@@ -317,7 +322,9 @@ public class Application extends SecureController {
 		//	query += " and studyfulltext.fulltext like ?";
 		//}
 		//full text
-		String query = String.format("from study join patient on study.patient_fk = patient.pk left join projectassociation on projectassociation.study_pk = study.pk left join project on projectassociation.project_id = project.id where to_tsvector('english_nostop', study_desc || %s' ' || pat_id || ' ' || coalesce(projectassociation.participationid, '') || ' ' || coalesce(project.name, '')) @@ plainto_tsquery('english_nostop', ?)", getUser().role == Role.Visitor ? "" : "' ' || pat_name || ");
+		String query = String.format(
+				"from study join patient on study.patient_fk = patient.pk left join projectassociation on projectassociation.study_pk = study.pk left join project on projectassociation.project_id = project.id where to_tsvector('english_nostop', study_desc || %s' ' || pat_id || ' ' || coalesce(projectassociation.participationid, '') || ' ' || coalesce(project.name, '')) @@ plainto_tsquery('english_nostop', ?)",
+				getUser().role == Role.Visitor ? "" : "' ' || pat_name || ");
 
 		Query studyCountQuery = JPA.em().createNativeQuery("select count(*) " + query);
 		//		for (int i = 0; i < termsArray.length; i++) {
@@ -456,7 +463,8 @@ public class Application extends SecureController {
 			objectUID = ((Instance) instances[instances.length / 2]).sop_iuid;
 		}
 		//columns=256 matches prefetch configuration
-		String url = String.format("http://%s:8080/wado?requestType=WADO&studyUID=&seriesUID=&objectUID=%s&frameNumber=%s&columns=%s", request.domain, objectUID, frameNumber, columns == null ? 256 : columns);
+		String url = String.format("http://%s:8080/wado?requestType=WADO&studyUID=&seriesUID=&objectUID=%s&frameNumber=%s&columns=%s",
+				request.domain, objectUID, frameNumber, columns == null ? 256 : columns);
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			Logger.warn("Image not found for %s", series);
