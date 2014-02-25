@@ -208,7 +208,8 @@ public class Dicom {
 		});
 	}
 
-	private static final List<String> renderable = Arrays.asList(CUID.MRImageStorage.value, CUID.EnhancedMRImageStorage.value, CUID.SecondaryCaptureImageStorage.value,
+	private static final List<String> renderable = Arrays.asList(CUID.MRImageStorage.value, 
+			CUID.EnhancedMRImageStorage.value, CUID.SecondaryCaptureImageStorage.value,
 			CUID.MultiframeGrayscaleWordSecondaryCaptureImageStorage.value);
 	public static boolean renderable(Series series) {
 		return CollectionUtils.exists(series.instances, new Predicate() {

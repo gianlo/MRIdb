@@ -10,7 +10,9 @@ import models.Study;
 
 public class Download {
 
-	public static void study(Study study, File tmpDir, Format format, Boolean preferMultiframe, String niftiMultiframeScript) throws Exception {
+	public static void study(Study study, File tmpDir, Format format, 
+			Boolean preferMultiframe, String niftiMultiframeScript) 
+			throws Exception {
 		for (Series series : study.series) {
 			//if ("MR".equals(series.modality)) {
 			if (Dicom.downloadable(series)) {
@@ -19,7 +21,9 @@ public class Download {
 		}
 	}
 
-	public static void series(Series series, File tmpDir, Format format, boolean preferMultiframe, String niftiMultiframeScript) throws Exception {
+	public static void series(Series series, File tmpDir, Format format, 
+			boolean preferMultiframe, String niftiMultiframeScript) 
+					throws Exception {
 		File dir = new File(new File(tmpDir, series.study.toDownloadString()), series.toDownloadString());
 		dir.mkdirs();
 

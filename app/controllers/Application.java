@@ -475,14 +475,20 @@ public class Application extends SecureController {
 
 	//pk is EITHER a Study OR a list of Series from a common Study
 	//@Transactional(readOnly=true)
-	public static void download(@As(binder=DomainModelBinder.class) List<DomainModel> pk, Format format) throws InterruptedException, IOException, IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
+	public static void download(@As(binder=DomainModelBinder.class) List<DomainModel> pk, Format format) 
+			throws InterruptedException, IOException, IllegalArgumentException, 
+			SecurityException, IllegalAccessException, InvocationTargetException, 
+			NoSuchMethodException, NoSuchFieldException {
 		{
 			Study study = pk.get(0) instanceof Study ? (Study) pk.get(0) : ((Series) pk.get(0)).study;
 			PersistentLogger.log("downloaded %s %s %s", pk.get(0) instanceof Study ? "study" : "series", pk, study.patient.pat_id);
 		}
 		File tmpDir = new File(Properties.getDownloads(), UUID.randomUUID().toString());
 		tmpDir.mkdir();
-		File outDir = await(new Downloader(format == null ? Format.dcm : format, tmpDir, Boolean.TRUE.equals(getUser().preferMultiframe), getUser().niftiMultiframeScript, Item.serialize(pk)).now());
+		File outDir = await(new 
+				Downloader(format == null ? Format.dcm : format, 
+						tmpDir, Boolean.TRUE.equals(getUser().preferMultiframe), 
+						getUser().niftiMultiframeScript, Item.serialize(pk)).now());
 		if (FileUtils.listFiles(outDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE).isEmpty()) {
 			error("Failed to retrieve files");
 		}
