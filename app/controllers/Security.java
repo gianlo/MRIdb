@@ -30,7 +30,8 @@ public class Security extends Secure.Security {
 				if (Properties.getString("ldap.server").startsWith("ldaps")){
 					env.put(Context.SECURITY_AUTHENTICATION, "simple");
 				}
-				env.put(Context.SECURITY_PRINCIPAL, String.format("%s@%s", username, Properties.getString("ldap.domain")));
+				env.put(Context.SECURITY_PRINCIPAL, 
+						String.format("%s@%s", username, Properties.getString("ldap.domain")));
 				env.put(Context.SECURITY_CREDENTIALS, password);
 				try {
 					new InitialDirContext(env);
