@@ -163,7 +163,9 @@ public class Dicom {
 		MRImageStorage("1.2.840.10008.5.1.4.1.1.4"),
 		EnhancedMRImageStorage("1.2.840.10008.5.1.4.1.1.4.1"),
 		MRSpectroscopyStorage("1.2.840.10008.5.1.4.1.1.4.2"),
-		SecondaryCaptureImageStorage("1.2.840.10008.5.1.4.1.1.7");
+		SecondaryCaptureImageStorage("1.2.840.10008.5.1.4.1.1.7"),
+		GrayscaleSoftcopyPresentationStateStorage("1.2.840.10008.5.1.4.1.1.11.1"),
+		MultiframeGrayscaleWordSecondaryCaptureImageStorage("1.2.840.10008.5.1.4.1.1.7.3");
 		final String value;
 		CUID(String value) {
 			this.value = value;
@@ -174,7 +176,7 @@ public class Dicom {
 		return (Instance) CollectionUtils.find(series.instances, new Predicate() {
 			@Override
 			public boolean evaluate(Object arg0) {
-				return CUID.EnhancedMRImageStorage.value.equals(((Instance) arg0).sop_cuid);
+				return CUID.EnhancedMRImageStorage.value.equals(((Instance) arg0).sop_cuid) |CUID.MultiframeGrayscaleWordSecondaryCaptureImageStorage.value.equals(((Instance) arg0).sop_cuid);
 			}
 		});
 	}
@@ -206,7 +208,9 @@ public class Dicom {
 		});
 	}
 
-	private static final List<String> renderable = Arrays.asList(CUID.MRImageStorage.value, CUID.EnhancedMRImageStorage.value, CUID.SecondaryCaptureImageStorage.value);
+	private static final List<String> renderable = Arrays.asList(CUID.MRImageStorage.value, 
+			CUID.EnhancedMRImageStorage.value, CUID.SecondaryCaptureImageStorage.value,
+			CUID.MultiframeGrayscaleWordSecondaryCaptureImageStorage.value);
 	public static boolean renderable(Series series) {
 		return CollectionUtils.exists(series.instances, new Predicate() {
 			@Override
@@ -216,7 +220,8 @@ public class Dicom {
 		});
 	}
 
-	private static final List<String> downloadable = Arrays.asList(CUID.MRImageStorage.value, CUID.EnhancedMRImageStorage.value, CUID.MRSpectroscopyStorage.value, CUID.SecondaryCaptureImageStorage.value);
+	private static final List<String> downloadable = Arrays.asList(CUID.MRImageStorage.value, CUID.EnhancedMRImageStorage.value, CUID.MRSpectroscopyStorage.value, 
+			CUID.SecondaryCaptureImageStorage.value, CUID.MultiframeGrayscaleWordSecondaryCaptureImageStorage.value);
 	public static boolean downloadable(Series series) {
 		return CollectionUtils.exists(series.instances, new Predicate() {
 			@Override

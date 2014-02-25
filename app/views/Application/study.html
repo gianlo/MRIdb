@@ -57,12 +57,14 @@
 			}
 			return false;
 		});
+		#{ifUseWeasis}
 		$('a.weasis').on('click', function() {
 			if ($(this).hasClass('enabled')) {
 				window.location = this.href + $("a.selected").data("iuid");
 			}
 			return false;
 		});
+		#{/ifUseWeasis}
 		$('a.all').on('click', function() {
 			$('a.thumbnail').addClass('selected');
 			return false;
@@ -124,7 +126,7 @@
 	#{a @download(null, 'nii'), class: "btn btn-info download"}<i class="icon-share icon-large"></i>&nbsp;&nbsp;NIfTI#{/a}&nbsp;
 	#{a @download(null, 'img'), class: "btn btn-info download"}<i class="icon-share icon-large"></i>&nbsp;&nbsp;Analyze#{/a}&nbsp;
 	<a href="#" class="btn btn-info single imagej"><i class="icon-zoom-in icon-large"></i>&nbsp;&nbsp;ImageJ</a>&nbsp;
-	#{ifNotVisitor}<a href="//${request.domain}:8080/weasis-pacs-connector/viewer.jnlp?seriesUID=" class="btn btn-info single weasis"><i class="icon-zoom-in icon-large"></i>&nbsp;&nbsp;Weasis</a>#{/ifNotVisitor}
+	#{ifUseWeasis}#{ifNotVisitor}<a href="http://${request.host}:8080/weasis-pacs-connector/viewer.jnlp?seriesUID=" class="btn btn-info single weasis"><i class="icon-zoom-in icon-large"></i>&nbsp;&nbsp;Weasis</a>#{/ifNotVisitor}#{/ifUseWeasis}
 	<p style="margin: 1em 0">Ctrl-click or ⌘-click to select multiple exams | <a href="#" class="all update">Select all</a> | <a class="none update" href="#">Select none</a></p>
 	<div class="row-fluid">
 		<ul class="thumbnails">
@@ -188,4 +190,11 @@
 			<button type="submit" class="btn btn-primary">Save changes</button>
 		</div>
 	#{/form}
+</div>
+<div class="modal hide" id="pleaseWait">
+		<div class="modal-header"></div>
+		<div class="modal-body">
+			<p>Data is being anonymised please wait...</p>
+		</div>
+		<div class="modal-footer"></div>	
 </div>
