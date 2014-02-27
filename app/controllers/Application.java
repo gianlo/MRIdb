@@ -468,8 +468,8 @@ public class Application extends SecureController {
 			objectUID = ((Instance) instances[instances.length / 2]).sop_iuid;
 		}
 		//columns=256 matches prefetch configuration
-		String url = String.format("http://%s:8080/wado?requestType=WADO&studyUID=&seriesUID=&objectUID=%s&frameNumber=%s&columns=%s",
-				request.domain, objectUID, frameNumber, columns == null ? 256 : columns);
+		String url = String.format("%s/wado?requestType=WADO&studyUID=&seriesUID=&objectUID=%s&frameNumber=%s&columns=%s",
+				Properties.getDcm4cheeURL(), objectUID, frameNumber, columns == null ? 256 : columns);
 		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 		if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 			Logger.warn("Image not found for %s", series);

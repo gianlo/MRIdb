@@ -26,9 +26,16 @@ public class Properties {
 		return Play.configuration.getProperty(key);
 	}
 
+	public static String getDcm4cheeURL(){
+		return String.format("%s://%s:%s", 
+				getString("dcm4chee.protocol"), 
+				getString("dcm4chee.host"),
+				getString("dcm4chee.port"));
+	}
+	
 	public static File getArchive() {
 		File archive = new File(Filesystem.<Filesystem>findAll().get(0).dirpath);
-		return archive.isAbsolute() ? archive : new File(getString("dcm4chee"), String.format("server/default/%s", archive.getPath()));
+		return archive.isAbsolute() ? archive : new File(getString("dcm4chee.location"), String.format("server/default/%s", archive.getPath()));
 	}
 
 	public static int pageSize() {
