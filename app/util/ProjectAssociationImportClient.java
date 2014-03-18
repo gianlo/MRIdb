@@ -25,8 +25,10 @@ public class ProjectAssociationImportClient {
 		super();
 		setFilename(filename);
 	}
-	
-	public void importAssociationsFromCSV() throws IOException{
+	public void run() throws IOException{
+		importAssociationsFromCSV(filename);
+	}
+	public static void importAssociationsFromCSV(String filename) throws IOException{
 		CSVReader reader;
 		try {
 			 reader = new CSVReader(new FileReader(filename));
@@ -86,10 +88,10 @@ public class ProjectAssociationImportClient {
 
 	 public static void main (String[] args){
 		 if (args.length > 1){
-			 ProjectAssociationImportClient importClient;
-			 importClient = new ProjectAssociationImportClient(args[1]);
+//			 ProjectAssociationImportClient importClient;
+//			 importClient = new ProjectAssociationImportClient(args[1]);
 			 try {
-				importClient.importAssociationsFromCSV();
+				importAssociationsFromCSV(args[1]);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
