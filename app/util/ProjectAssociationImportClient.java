@@ -88,6 +88,7 @@ public class ProjectAssociationImportClient {
 
 	 public static void main (String[] args){
 		 if (args.length > 1){
+			 System.out.println("Importing " + args[1]);
 //			 ProjectAssociationImportClient importClient;
 //			 importClient = new ProjectAssociationImportClient(args[1]);
 			 try {
