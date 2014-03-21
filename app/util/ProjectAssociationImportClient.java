@@ -66,10 +66,10 @@ public class ProjectAssociationImportClient {
 	}
 
 	 public static void main (String[] args){
-		 if (args.length > 1){
-			 System.out.println("Importing " + args[1]);
+		 if (args.length > 0){
+			 System.out.println("Importing " + args[0]);
 			 try {
-				importAssociationsFromCSV(args[1]);
+				importAssociationsFromCSV(args[0]);
 			} catch (FileNotFoundException e) {
 				System.err.println("File not found");
 				e.printStackTrace();
