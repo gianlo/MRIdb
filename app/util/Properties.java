@@ -1,32 +1,40 @@
 package util;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import models.Filesystem;
 import play.Play;
 
 public class Properties {
+	//this eases the access to mridb configurations from conf/application.conf
 	
-	private static final boolean use_weasis = Play.configuration.getProperty("use_weasis") != null ?
-			Play.configuration.getProperty("use_weasis").equalsIgnoreCase("true") : false;
+	// This are optional configuration variables
+	public static final List<String> mridb_optional_configuration_variables = Arrays.asList("use_weasis", "dcm4chee.protocol",
+			"dcm4chee.address", "dcm4chee.port");
+	//this are mandatory configuration variables
+	public static final List<String> mridb_mandatory_configuration_variables = Arrays.asList("dcm4chee.location");
+
 	
+	//if the hardcoded default value is here changes, please update the conf/default.conf text file
+	public static boolean useWeasis(){
+		return Play.configuration.getProperty("use_weasis") != null ?
+				Play.configuration.getProperty("use_weasis").equalsIgnoreCase("true") : false;
+	}
+	
+	//if the hardcoded default value is here changes, please update the conf/default.conf text file
 	private static final String dcm4chee_protocol = Play.configuration.getProperty("dcm4chee.protocol") != null ?
 			Play.configuration.getProperty("dcm4chee.protocol") : "http";
 
-	private static final String dcm4chee_hostname = Play.configuration.getProperty("dcm4chee.hostname") != null ?
-			Play.configuration.getProperty("dcm4chee.hostname") : "localhost";
+	//if the hardcoded default value is here changes, please update the conf/default.conf text file
+	private static final String dcm4chee_address = Play.configuration.getProperty("dcm4chee.address") != null ?
+			Play.configuration.getProperty("dcm4chee.address") : "localhost";
 			
+	//if the hardcoded default value is here changes, please update the conf/default.conf text file
 	private static final String dcm4chee_port = Play.configuration.getProperty("dcm4chee.port") != null ?
 			Play.configuration.getProperty("dcm4chee.port") : "8080";
 			
-	private static final String dcm4chee_url = String.format("%s://%s:%s", dcm4chee_protocol,
-			dcm4chee_hostname, dcm4chee_port);
-	
-	public static boolean useWeasis(){
-		return use_weasis;
-		
-	}
-	
 	public static int getInt(String key) {
 		return Integer.parseInt(Play.configuration.getProperty(key));
 	}
@@ -36,7 +44,8 @@ public class Properties {
 	}
 
 	public static String getDcm4cheeURL(){
-		return dcm4chee_url;
+		return String.format("%s://%s:%s", dcm4chee_protocol,
+				dcm4chee_address, dcm4chee_port);
 	}
 	
 	public static File getArchive() {
