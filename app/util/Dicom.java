@@ -199,6 +199,15 @@ public class Dicom {
 		});
 	}
 
+	public static boolean isMRS(Series series) {
+		return CollectionUtils.exists(series.instances, new Predicate() {
+			@Override
+			public boolean evaluate(Object arg0) {
+				return CUID.MRSpectroscopyStorage.value.equals(((Instance) arg0).sop_cuid);
+			}
+		});
+	}
+	
 	public static Instance spectrogram(Series series) {
 		return (Instance) CollectionUtils.find(series.instances, new Predicate() {
 			@Override

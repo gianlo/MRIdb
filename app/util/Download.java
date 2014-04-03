@@ -30,7 +30,9 @@ public class Download {
 		if (format == Format.nii) {
 			if (Dicom.singleFrame(series) || "dcm2nii".equals(niftiMultiframeScript)) {
 				Util.exec("timeout", Properties.getString("exec.timeout"), Properties.getString("dcm2nii"), "-g", "n", "-p", "n", "-d", "n", "-o", dir.getPath(), Dicom.collate(series, preferMultiframe).getPath());
-			} else {
+			}  else if (Dicom.isMRS(series)){//this generates the single voxel nifti volume
+				Util.exec("timeout", Properties.getString("exec.timeout"), "python", Properties.getString("dicom_2_nifti"), Dicom.file(Dicom.spectrogram(series)).getPath(), new File(dir, String.format("%s.nii.gz", series.toDownloadString())).getPath());
+			}  else {
 				Util.exec("timeout", Properties.getString("exec.timeout"), "python", Properties.getString("dicom_2_nifti"), Dicom.file(Dicom.multiFrame(series)).getPath(), new File(dir, String.format("%s.nii.gz", series.toDownloadString())).getPath());
 			}
 		} else if (format == Format.img) {
