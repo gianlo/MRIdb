@@ -11,11 +11,13 @@ public class Properties {
 	//this eases the access to mridb configurations from conf/application.conf
 	
 	// This are optional configuration variables
-	public static final List<String> mridb_optional_configuration_variables = Arrays.asList("use_weasis", "dcm4chee.protocol",
+	public static final List<String> mridb_optional_configuration_variables = 
+			Arrays.asList("use_weasis", "dcm4chee.protocol",
 			"dcm4chee.address", "dcm4chee.port");
 	//this are mandatory configuration variables
 	public static final List<String> mridb_mandatory_configuration_variables = 
-			Arrays.asList("dcm4chee.location", "dcmtk", "dcm2nii", "xmedcon");
+			Arrays.asList("dcm4chee.location", "dcmtk", "dcm2nii", "xmedcon", 
+					"clipboard.limit", "exec.timeout");
 
 	
 	//if the hardcoded default value is here changes, please update the conf/default.conf text file
