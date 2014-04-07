@@ -289,7 +289,7 @@ public class Application extends SecureController {
 					Series series = (Series) CollectionUtils.find(study.series, new Predicate() {
 						@Override
 						public boolean evaluate(Object arg0) {
-							return header.equalsIgnoreCase(((Series) arg0).series_desc);
+							return header.equalsIgnoreCase(((Series) arg0).series_custom1);
 						}
 					});
 					if (series != null) {
