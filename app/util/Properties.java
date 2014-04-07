@@ -14,7 +14,8 @@ public class Properties {
 	public static final List<String> mridb_optional_configuration_variables = Arrays.asList("use_weasis", "dcm4chee.protocol",
 			"dcm4chee.address", "dcm4chee.port");
 	//this are mandatory configuration variables
-	public static final List<String> mridb_mandatory_configuration_variables = Arrays.asList("dcm4chee.location");
+	public static final List<String> mridb_mandatory_configuration_variables = 
+			Arrays.asList("dcm4chee.location", "dcmtk", "dcm2nii", "xmedcon");
 
 	
 	//if the hardcoded default value is here changes, please update the conf/default.conf text file
