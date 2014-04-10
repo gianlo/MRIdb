@@ -238,7 +238,7 @@ public class Application extends SecureController {
 			render();
 		}
 		response.contentType = "text/csv";
-		response.setHeader("Content-Disposition", "attachment; filename='audit.csv'");
+		response.setHeader("Content-Disposition", "attachment; filename=audit.csv");
 		CSVReader reader = new CSVReader(new FileReader(spreadsheet));
 		CSVWriter writer = new CSVWriter(new OutputStreamWriter(response.out));
 		String[] headers = reader.readNext();

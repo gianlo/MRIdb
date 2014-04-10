@@ -6,6 +6,7 @@ import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 import util.Properties;
+import play.exceptions.ConfigurationException;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
@@ -27,6 +28,7 @@ public class Bootstrap extends Job {
 		for (String var : Properties.mridb_mandatory_configuration_variables){
 			if (Properties.getString(var) == null){
 				Logger.error("Configuration: %s not found CRITICAL (see conf/default.conf)", var);
+				throw new ConfigurationException("CRITICAL (see conf/default.conf) mandatory parameter  not found: " + var);
 			}
 		}
 		

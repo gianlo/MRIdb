@@ -17,7 +17,7 @@ public class Properties {
 	//this are mandatory configuration variables
 	public static final List<String> mridb_mandatory_configuration_variables = 
 			Arrays.asList("dcm4chee.location", "dcmtk", "dcm2nii", "xmedcon", 
-					"clipboard.limit", "exec.timeout");
+					"clipboard.limit", "exec.timeout", "application.name");
 
 	
 	//if the hardcoded default value is here changes, please update the conf/default.conf text file
