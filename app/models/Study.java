@@ -21,6 +21,7 @@ import ext.JavaExtensions;
 //@NamedNativeQuery(name = "nativeSQL", query = "select * from study", resultClass = Study.class)
 public class Study extends DomainModel {
 
+	public String study_iuid;
 	public String study_id;
 	public String study_desc;
 	public Date study_datetime;
