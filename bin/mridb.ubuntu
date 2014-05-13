@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# description: MRIdb web application
+
+prog="mridb"
+
+PLAY=/opt/play-1.2.x/play
+APP_PATH=/opt/$prog
+
+run(){
+    $PLAY $1 $APP_PATH --%prod --pid_file=/var/lock/$prog.pid -Dprecompiled=true $PLAY_OPTS >/dev/null
+    RETVALUE=$?
+    if [ $RETVALUE -eq 0 ]
+    then
+        echo echo_success
+    else
+        echo echo_failure
+    fi
+    echo
+}
+
+case "$1" in
+start)
+	PGSQLRUNNING=`service postgresql status|grep main`
+	if [ "$PGSQLRUNNING" = "" ];then
+		echo `date` MRIDB
+		echo "FAILED: postgresql not running - exiting..."
+		exit
+	fi
+    echo -n $"Starting $prog: "
+    run $1
+    ;;  
+stop)
+    echo -n $"Stopping $prog: "
+    run $1
+    ;;
+restart)
+    echo -n $"Restarting $prog: "
+    run $1
+    ;;
+status)
+	echo `run $1`
+	;;
+*)
+    echo "Usage: $prog {start|stop|restart|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit $?
