@@ -24,7 +24,7 @@ run(){
 check_status(){
 
     is_running=`$PLAY status $APP_PATH --url=$APP_URL|grep 'Cannot retrieve the application status'`
-	if [ "$is_running"="" ];then
+	if [ "$is_running" = "" ];then
 		echo 1
 	else
 		echo 0
