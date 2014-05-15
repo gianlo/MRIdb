@@ -6,6 +6,8 @@ prog="mridb"
 
 PLAY=/opt/play-1.2.x/play
 APP_PATH=/opt/$prog
+#this is required to check status, please update with correct protocol (http, https)
+APP_URL=https://localhost
 
 run(){
     $PLAY $1 $APP_PATH --%prod --pid_file=/var/lock/$prog.pid -Dprecompiled=true $PLAY_OPTS >/dev/null
@@ -17,6 +19,16 @@ run(){
         echo echo_failure
     fi
     echo
+}
+
+check_status(){
+
+    is_running=`$PLAY status $APP_PATH --url=$APP_URL|grep 'Cannot retrieve the application status'`
+	if [ "$is_running"="" ];then
+		echo 1
+	else
+		echo 0
+	fi	
 }
 
 case "$1" in
@@ -39,7 +51,7 @@ restart)
     run $1
     ;;
 status)
-	echo `run $1`
+	check_status
 	;;
 *)
     echo "Usage: $prog {start|stop|restart|status}" >&2
